@@ -1,11 +1,11 @@
 package state_machine
 
 type State struct {
-    Name string
+	Name string
 }
 
 func NewState(name string) *State {
-    return &State{
-        Name: name,
-    }
+	return &State{
+		Name: name,
+	}
 }
