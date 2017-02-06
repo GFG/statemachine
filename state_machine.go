@@ -34,3 +34,11 @@ func (state_machine *StateMachine) AddState(state State) error {
 
 	return nil
 }
+
+func (state_machine *StateMachine) AddTransition(transition Transition) {
+	state_machine.transitions = append(state_machine.transitions, transition)
+}
+
+func (state_machine *StateMachine) GetTransitions() []Transition {
+	return state_machine.transitions
+}
