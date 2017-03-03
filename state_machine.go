@@ -1,38 +1,16 @@
 package state_machine
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 type StateMachine struct {
-	states      map[string]State
 	transitions []Transition
 }
 
 func NewStateMachine() *StateMachine {
-	return &StateMachine{
-		states: make(map[string]State),
-	}
-}
-
-func (state_machine *StateMachine) GetState(name string) (State, error) {
-	var state State
-
-	state, err := state_machine.states[name]
-	if !err {
-		return state, errors.New("State not found")
-	}
-
-	return state, nil
-}
-
-func (state_machine *StateMachine) AddState(state State) error {
-	_, err := state_machine.GetState(state.Name)
-	if err == nil {
-		return errors.New("State already exists")
-	}
-
-	state_machine.states[state.Name] = state
-
-	return nil
+	return &StateMachine{}
 }
 
 func (state_machine *StateMachine) AddTransition(transition Transition) {
@@ -41,4 +19,15 @@ func (state_machine *StateMachine) AddTransition(transition Transition) {
 
 func (state_machine *StateMachine) GetTransitions() []Transition {
 	return state_machine.transitions
+}
+
+func (state_machine *StateMachine) Transition(from *State, to *State) (bool, error) {
+	transitions := state_machine.GetTransitions()
+	for _, transition := range transitions {
+		if (transition.From == from) && (transition.To == to) {
+			return true, nil
+		}
+	}
+
+	return false, errors.New(fmt.Sprintf("Cannot transition from %s to %s", from.Name, to.Name))
 }
