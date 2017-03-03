@@ -1,12 +1,13 @@
 package state_machine
 
-import "testing"
+import (
+	"testing"
+	"github.com/stretchr/testify/assert"
+)
 
 func TestNewState(t *testing.T) {
 	state_name := "Fake test"
 	state := NewState(state_name)
 
-	if state.Name != state_name {
-		t.Fatalf("expected '%s', got '%s'", state_name, state.Name)
-	}
+	assert.Equal(t, state_name, state.Name)
 }
