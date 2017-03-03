@@ -1,6 +1,9 @@
 package state_machine
 
-import "testing"
+import (
+	"testing"
+	"github.com/stretchr/testify/assert"
+)
 
 func TestNewTransition(t *testing.T) {
 	state1 := NewState("State1")
@@ -8,11 +11,6 @@ func TestNewTransition(t *testing.T) {
 
 	transition := NewTransition(state1, state2)
 
-	if transition.From != state1 {
-		t.Fatalf("expected '%s', got '%s'", state1.Name, transition.From.Name)
-	}
-
-	if transition.To != state2 {
-		t.Fatalf("expected '%s', got '%s'", state2.Name, transition.To.Name)
-	}
+	assert.Equal(t, transition.From, state1)
+	assert.Equal(t, transition.To, state2)
 }

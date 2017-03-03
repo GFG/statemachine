@@ -1,6 +1,9 @@
 package state_machine
 
-import "testing"
+import (
+	"testing"
+	"github.com/stretchr/testify/assert"
+)
 
 
 func TestAddTransition(t *testing.T) {
@@ -11,9 +14,8 @@ func TestAddTransition(t *testing.T) {
 
 	smachine.AddTransition(*transition1)
 	transitions := smachine.GetTransitions()
-	if len(transitions) != 1 {
-		t.Fatalf("expected 1 transition, got %d", len(transitions))
-	}
+
+	assert.Equal(t, 1, len(transitions))
 }
 
 func TestStateCanTransition(t *testing.T) {
@@ -24,15 +26,9 @@ func TestStateCanTransition(t *testing.T) {
 
 	smachine.AddTransition(*NewTransition(state1, state2))
 
-	_, err := smachine.Transition(state1, state2)
-	if err != nil {
-		t.Fatalf(
-			"expected transition to be ok from %s to %s, got error: %s",
-			state1.Name,
-			state2.Name,
-			err.Error(),
-		)
-	}
+	ack, err := smachine.Transition(state1, state2)
+	assert.Equal(t, true, ack)
+	assert.Nil(t, err)
 }
 
 func TestStateCannotTransition(t *testing.T) {
@@ -45,7 +41,6 @@ func TestStateCannotTransition(t *testing.T) {
 	smachine.AddTransition(*NewTransition(state1, state2))
 
 	transition_ok, err := smachine.Transition(state1, state3)
-	if (err == nil) && (transition_ok == true) {
-		t.Fatal("transition expected to fail, got ack instead")
-	}
+	assert.Equal(t, false, transition_ok)
+	assert.NotNil(t, err)
 }
