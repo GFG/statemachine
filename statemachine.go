@@ -24,7 +24,7 @@ func (state_machine *StateMachine) GetTransitions() []Transition {
 func (state_machine *StateMachine) Transition(from *State, to *State) (bool, error) {
 	transitions := state_machine.GetTransitions()
 	for _, transition := range transitions {
-		if (transition.From == from) && (transition.To == to) {
+		if (transition.From.Name == from.Name) && (transition.To.Name == to.Name) {
 			return true, nil
 		}
 	}
