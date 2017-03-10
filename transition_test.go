@@ -1,8 +1,8 @@
 package statemachine
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestNewTransition(t *testing.T) {
