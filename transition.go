@@ -8,6 +8,6 @@ type Transition struct {
 func NewTransition(from *State, to *State) *Transition {
 	return &Transition{
 		From: from,
-		To: to,
+		To:   to,
 	}
 }
