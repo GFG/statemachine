@@ -39,7 +39,7 @@ func TestStateCannotTransition(t *testing.T) {
 
 	smachine.AddTransition(*NewTransition(state1, state2))
 
-	transition_ok, err := smachine.Transition(state1, state3)
-	assert.Equal(t, false, transition_ok)
+	transitionOk, err := smachine.Transition(state1, state3)
+	assert.Equal(t, false, transitionOk)
 	assert.NotNil(t, err)
 }

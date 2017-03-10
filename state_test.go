@@ -6,8 +6,8 @@ import (
 )
 
 func TestNewState(t *testing.T) {
-	state_name := "Fake test"
-	state := NewState(state_name)
+	stateName := "Fake test"
+	state := NewState(stateName)
 
-	assert.Equal(t, state_name, state.Name)
+	assert.Equal(t, stateName, state.Name)
 }
